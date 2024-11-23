@@ -50,6 +50,8 @@ cargo run --release
 
 To exit the application, press `q` or `Ctrl+C`.
 
+in case of facing issue `dyld: Library not loaded: @rpath/libclang.dylib` please check [OpenCV crate: Troubleshooting section](https://github.com/twistedfall/opencv-rust/blob/master/TROUBLESHOOTING.md)
+
 ## How It Works
 
 1. The application captures video frames from your webcam using OpenCV
