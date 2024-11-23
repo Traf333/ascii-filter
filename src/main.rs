@@ -26,8 +26,8 @@ fn main() -> Result<(), opencv::Error> {
 
         // Resize the frame for easier display in the terminal
         let aspect_correction = 1.8; // Adjust based on terminal font
-        let rows = 40;
-        let cols = (80.0 * aspect_correction) as i32;
+        let rows = 30;
+        let cols = (60.0 * aspect_correction) as i32;
         println!("\x1B[2J"); // Clear the terminal
         let mut small_frame = Mat::default();
         imgproc::resize(
@@ -60,7 +60,7 @@ fn main() -> Result<(), opencv::Error> {
         // Small delay for frame rate
         std::thread::sleep(std::time::Duration::from_millis(50));
 
-        // Show the frame
+        // Uncomment to see the frame from camera
         // highgui::imshow(window, &gray_frame)?;
 
         // Exit the loop if 'q' is pressed
