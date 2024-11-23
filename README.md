@@ -2,6 +2,9 @@
 
 A real-time webcam application that converts video feed into ASCII art using OpenCV and Rust. This project captures video from your webcam and displays it in the terminal as ASCII characters, creating an artistic text-based representation of the video feed.
 
+![Convert to GIF Nov 23 2024](https://github.com/user-attachments/assets/1ee9c04a-081c-4ec4-a5a3-9b44b96577a7)
+
+
 ## Prerequisites
 
 - Rust (latest stable version)
