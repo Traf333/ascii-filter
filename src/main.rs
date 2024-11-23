@@ -25,7 +25,10 @@ fn main() -> Result<(), opencv::Error> {
         imgproc::cvt_color(&frame, &mut gray_frame, imgproc::COLOR_BGR2GRAY, 0)?;
 
         // Resize the frame for easier display in the terminal
-        let (cols, rows) = (80, 40); // Adjust for your terminal size
+        let aspect_correction = 1.8; // Adjust based on terminal font
+        let rows = 40;
+        let cols = (80.0 * aspect_correction) as i32;
+        println!("\x1B[2J"); // Clear the terminal
         let mut small_frame = Mat::default();
         imgproc::resize(
             &gray_frame,
@@ -40,21 +43,23 @@ fn main() -> Result<(), opencv::Error> {
         )?;
 
         // Convert each pixel to an ASCII character based on brightness
+        let mut ascii_art = String::new();
         for y in 0..rows {
-            let mut line = String::new();
             for x in 0..cols {
                 let pixel_value = *small_frame.at_2d::<u8>(y, x)?;
                 let char_idx = ((pixel_value as f64 / 255.0) * (ascii_len - 1.0)).round() as usize;
-                line.push(ascii_chars.chars().nth(char_idx).unwrap());
+                let ascii_char = ascii_chars.chars().nth(char_idx).unwrap();
+                ascii_art.push(ascii_char);
             }
-            println!("{}", line); // Print each line for the frame
+            ascii_art.push('\n');
         }
 
-        // Clear the terminal (ANSI escape code for Unix-based systems)
-        print!("\x1B[2J\x1B[1;1H");
+        // Move cursor to top-left and print the frame
+        print!("\x1B[H{}", ascii_art);
 
-        // Add delay (adjust based on your processing speed)
+        // Small delay for frame rate
         std::thread::sleep(std::time::Duration::from_millis(50));
+
         // Show the frame
         // highgui::imshow(window, &gray_frame)?;
 
